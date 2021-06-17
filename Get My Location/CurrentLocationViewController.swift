@@ -93,8 +93,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
-        print("didFailWithErrors:- \(error.localizedDescription)")
-        
         if (error as NSError).code == CLError.locationUnknown.rawValue {
             return
         }
@@ -106,7 +104,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let newLocation = locations.last!
-        print("didUpdateLocation:- \(newLocation)")
         
         // Get accuracy reult
         if newLocation.timestamp.timeIntervalSinceNow < -5 {
@@ -128,7 +125,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
             location = newLocation
             
             if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
-                print("Well Done Process!")
                 stopLocationManager()
                 if distance >= 0 {
                     performingReverseGeocoding = false
@@ -142,7 +138,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
                 geocoder.reverseGeocodeLocation(newLocation) {
                     (placemarks, errors) in
                     if let error = errors {
-                        print("Error while geocoding \(error.localizedDescription)")
                         self.lastGeocodingErrors = error
                         self.placemark = nil
                     }
@@ -157,7 +152,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
             } else if distance < 1 {
                 let timeInterval = newLocation.timestamp.timeIntervalSince(location!.timestamp)
                 if timeInterval > 10 {
-                    print("Force Done!")
                     stopLocationManager()
                     updateLabels()
                 }
@@ -237,8 +231,7 @@ extension CurrentLocationViewController {
         }
     }
     
-     @objc func didTimeOut() {
-            print("Time Out...")
+    @objc func didTimeOut() {
         if location == nil {
             stopLocationManager()
             lastLocationError = NSError(domain: "MyLocationErrorDomain", code: 0, userInfo: nil)

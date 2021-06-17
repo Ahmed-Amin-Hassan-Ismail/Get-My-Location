@@ -10,10 +10,9 @@ import UIKit
 import CoreLocation
 
 private let dateFormatter: DateFormatter = {
-   let formatter = DateFormatter()
+    let formatter = DateFormatter()
     formatter.dateStyle = .medium
     formatter.timeStyle = .short
-    print("Hey , i am date formatter")
     return formatter
 }()
 
@@ -47,15 +46,31 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Hide empty cells
         tableView.tableFooterView = UIView()
-       
+        
         // pass data
         displayLabels()
+        
+        // Deactive the keyboard
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func hideKeyboard(_ gestureRecognizer: UITapGestureRecognizer) {
+        let point = gestureRecognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        if indexPath != nil &&
+            indexPath!.section == 0 &&
+            indexPath!.row == 0 {
+            return
+        }
+        descriptionLabel.resignFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,8 +80,8 @@ class LocationDetailsViewController: UITableViewController {
             controller.selectedCategoryName = categoryLabel.text!
         }
     }
-
-
+    
+    
 }
 
 // MARK: - TableView Delegate
@@ -74,10 +89,16 @@ class LocationDetailsViewController: UITableViewController {
 extension LocationDetailsViewController {
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if indexPath.section == 0 {
+        if indexPath.section == 0 || indexPath.section == 1{
             return indexPath
         } else {
             return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            descriptionLabel.becomeFirstResponder()
         }
     }
     
@@ -106,7 +127,7 @@ extension LocationDetailsViewController {
     private func displayLabels() {
         
         descriptionLabel.text = " "
-       categoryLabel.text = "No Category"
+        categoryLabel.text = "No Category"
         latitudeLabel.text = String(format: "%.8f", coordinate.latitude )
         longitudeLabel.text = String(format: "%.8f", coordinate.longitude)
         if let placemark = placemark {
