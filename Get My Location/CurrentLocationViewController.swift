@@ -68,7 +68,23 @@ class CurrentLocationViewController: UIViewController {
         updateLabels()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = true
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        navigationController?.isNavigationBarHidden = false 
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tagLocation" {
+            let controller = segue.destination as! LocationDetailsViewController
+            controller.coordinate = location!.coordinate
+            controller.placemark = placemark
+        }
+    }
 }
 
 // MARK: - CLLocationManager delegate
