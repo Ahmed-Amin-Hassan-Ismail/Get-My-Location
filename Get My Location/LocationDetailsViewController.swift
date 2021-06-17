@@ -42,7 +42,15 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     @IBAction func done(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        
+        let hudView = HudView.hud(inView: navigationController!.view, animated: true)
+        hudView.text = "Tagged"
+        // Grand Central Dispatch
+        afterDelay(0.6) { [unowned self ] in
+            hudView.hideHUD()
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     
