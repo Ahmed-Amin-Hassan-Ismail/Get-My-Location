@@ -1,24 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UV6-6E-jYp">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Tag-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CurrentLocationViewController" customModule="Get_My_Location" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(message Label)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEN-Yl-YzL">
+                                <rect key="frame" x="10" y="50" width="355" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="uQ1-XQ-N1X">
+                                <rect key="frame" x="10" y="90.5" width="355" height="51.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PjW-UX-HIP">
+                                        <rect key="frame" x="0.0" y="0.0" width="98" height="51.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH0-5y-kUQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="69.5" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="VHZ-kb-A6j"/>
+                                                    <constraint firstAttribute="height" constant="21" id="Ypu-4G-Rf9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZQ-bk-bYX">
+                                                <rect key="frame" x="0.0" y="31" width="84" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jyf-SE-aeE">
+                                        <rect key="frame" x="198" y="0.0" width="157" height="51.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude goes here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APb-PM-EK1">
+                                                <rect key="frame" x="0.0" y="0.0" width="143" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="hG2-ek-5R9"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="143" id="wl9-jC-28w"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude goes here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmp-t1-9lm">
+                                                <rect key="frame" x="0.0" y="31" width="157" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="157" id="9zU-P8-AZ6"/>
+                                            <constraint firstAttribute="height" constant="51.5" id="YxC-ce-Mvb"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address goes here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKF-u9-zW1">
+                                <rect key="frame" x="10" y="192" width="355" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="160" translatesAutoresizingMaskIntoConstraints="NO" id="rDb-n2-ppt">
+                                <rect key="frame" x="131.5" y="262.5" width="112" height="220"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hpf-SC-Qz1">
+                                        <rect key="frame" x="12" y="0.0" width="88" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Hpf-SC-Qz1" secondAttribute="height" multiplier="44:15" id="Hzt-6Q-Nff"/>
+                                        </constraints>
+                                        <state key="normal" title="Tag Location"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Lb-TZ-TAy">
+                                        <rect key="frame" x="0.0" y="190" width="112" height="30"/>
+                                        <state key="normal" title="Get My Location"/>
+                                        <connections>
+                                            <action selector="getLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="27E-v0-aXm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="AEN-Yl-YzL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="5S4-9j-o3f"/>
+                            <constraint firstItem="iKF-u9-zW1" firstAttribute="top" secondItem="uQ1-XQ-N1X" secondAttribute="bottom" constant="50" id="Jkf-nd-Ln3"/>
+                            <constraint firstItem="uQ1-XQ-N1X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="KNP-DU-BhW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="rDb-n2-ppt" secondAttribute="trailing" constant="140" id="Kmx-nc-jwA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AEN-Yl-YzL" secondAttribute="trailing" constant="10" id="PwT-c2-pDg"/>
+                            <constraint firstItem="uQ1-XQ-N1X" firstAttribute="top" secondItem="AEN-Yl-YzL" secondAttribute="bottom" constant="20" id="SFW-n6-mfH"/>
+                            <constraint firstItem="rDb-n2-ppt" firstAttribute="top" secondItem="iKF-u9-zW1" secondAttribute="bottom" constant="50" id="UyK-30-yp0"/>
+                            <constraint firstItem="iKF-u9-zW1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Wj9-tB-h1P"/>
+                            <constraint firstItem="rDb-n2-ppt" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="140" id="adf-BJ-Z5k"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uQ1-XQ-N1X" secondAttribute="trailing" constant="10" id="eMT-l5-4Lz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iKF-u9-zW1" secondAttribute="trailing" constant="10" id="hZI-1W-ol1"/>
+                            <constraint firstItem="AEN-Yl-YzL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="mNq-g2-Igo"/>
+                            <constraint firstItem="rDb-n2-ppt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wpP-ZS-wXX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Tag" id="ccQ-GB-UrP"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="iKF-u9-zW1" id="xSI-AH-pO2"/>
+                        <outlet property="getButton" destination="6Lb-TZ-TAy" id="QS5-rO-MAW"/>
+                        <outlet property="latitudeLabel" destination="APb-PM-EK1" id="EFy-hy-eS8"/>
+                        <outlet property="longitudeLabel" destination="hmp-t1-9lm" id="hez-6J-TKO"/>
+                        <outlet property="messageLabel" destination="AEN-Yl-YzL" id="9ey-fp-qrh"/>
+                        <outlet property="tagButton" destination="Hpf-SC-Qz1" id="Vrs-gA-PV3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1071.2" y="94.902548725637189"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="So8-cn-2ay">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="UV6-6E-jYp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wrM-wE-R3h">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="oIL-h6-ZOV"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D6L-ek-yl1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="94.902548725637189"/>
         </scene>
     </scenes>
 </document>
