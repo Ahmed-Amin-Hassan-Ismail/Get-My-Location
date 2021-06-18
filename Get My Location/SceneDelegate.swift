@@ -38,15 +38,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let tabBarViewController = tabBar.viewControllers {
             
             // For the First Tab
-            let navigationController = tabBarViewController[0] as! UINavigationController
+            var navigationController = tabBarViewController[0] as! UINavigationController
             let currentViewController = navigationController.viewControllers.first  as! CurrentLocationViewController
             currentViewController.managedObjectContext = managedObjectContext
             
             // For the Second Tab
-            let navigationController2 = tabBarViewController[1] as! UINavigationController
-            let locationViewController = navigationController2.viewControllers.first as! LocationsViewController
+            navigationController = tabBarViewController[1] as! UINavigationController
+            let locationViewController = navigationController.viewControllers.first as! LocationsViewController
             locationViewController.managedObjectContext = managedObjectContext
             let _ = locationViewController.view
+            
+            // For the Third Tab
+            navigationController = tabBarViewController[2] as! UINavigationController
+            let mapViewController = navigationController.viewControllers.first as! MapViewController
+            mapViewController.managedObjectContext = managedObjectContext
+            let _ = mapViewController.view
         }
         print("Application Document Directory \(applicationDocumentDirectory)")
         listenFatalCoreDataNotification()
