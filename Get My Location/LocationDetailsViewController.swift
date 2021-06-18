@@ -20,12 +20,32 @@ private let dateFormatter: DateFormatter = {
 class LocationDetailsViewController: UITableViewController {
     
     // Core Data Instance
-       var managedObjectContext: NSManagedObjectContext!
+    var managedObjectContext: NSManagedObjectContext!
     
     //Instance Variables
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
     var date = Date()
+    var categoryName = "No Category"
+    var descriptionName = ""
+    
+    // For editing
+    var locationToEdit: Location? {
+        didSet {
+            // Display Edit Location
+            if let locationToEdit = locationToEdit {
+                title = "Edit Location"
+                
+                descriptionName = locationToEdit.locationDescription
+                categoryName = locationToEdit.category
+                coordinate = CLLocationCoordinate2DMake(locationToEdit.latitude, locationToEdit.longitude)
+                placemark = locationToEdit.placemark
+                date = locationToEdit.date
+                
+            }
+        }
+        
+    }
     
     // Outlets
     @IBOutlet weak var descriptionLabel: UITextView!
@@ -46,13 +66,18 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     @IBAction func done(_ sender: Any) {
-        
         let hudView = HudView.hud(inView: navigationController!.view, animated: true)
-        hudView.text = "Tagged"
+        let location: Location
         
-        // Saving Into Core Data
-        saveIntoCoreData()
-        
+        if let temporaryLocation = locationToEdit {
+            hudView.text = "Updated"
+            location = temporaryLocation
+        } else {
+            hudView.text = "Tagged"
+            // Saving Into Core Data
+            location = Location(context: managedObjectContext)
+        }
+        saveIntoCoreData(for: location)
         // Grand Central Dispatch
         afterDelay(0.6) { [unowned self ] in
             hudView.hideHUD()
@@ -62,7 +87,7 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     
-    
+    // MARK: - VC LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,7 +118,7 @@ class LocationDetailsViewController: UITableViewController {
         if segue.identifier == "showCategory" {
             let controller = segue.destination as! CategoryPickerViewController
             controller.delegate = self
-            controller.selectedCategoryName = categoryLabel.text!
+            controller.selectedCategoryName = categoryName
         }
     }
     
@@ -131,7 +156,8 @@ extension LocationDetailsViewController {
 
 extension LocationDetailsViewController: CategoryPickerViewControllerDelegate {
     func CategoryPickerViewController(controller: CategoryPickerViewController, didPicked category: String) {
-        categoryLabel.text = category
+        categoryName = category
+        categoryLabel.text = categoryName
         navigationController?.popViewController(animated: true)
     }
 }
@@ -142,8 +168,8 @@ extension LocationDetailsViewController {
     
     private func displayLabels() {
         
-        descriptionLabel.text = " "
-        categoryLabel.text = "No Category"
+        descriptionLabel.text = descriptionName
+        categoryLabel.text = categoryName
         latitudeLabel.text = String(format: "%.8f", coordinate.latitude )
         longitudeLabel.text = String(format: "%.8f", coordinate.longitude)
         if let placemark = placemark {
@@ -173,10 +199,9 @@ extension LocationDetailsViewController {
         return text1 + "\n" + text2
     }
     
-    private func saveIntoCoreData() {
-        let location = Location(context: managedObjectContext)
+    private func saveIntoCoreData(for location: Location) {
         location.locationDescription = descriptionLabel.text
-        location.category = categoryLabel.text!
+        location.category = categoryName
         location.latitude = coordinate.latitude
         location.longitude = coordinate.longitude
         location.date = date
