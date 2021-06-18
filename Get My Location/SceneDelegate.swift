@@ -7,47 +7,61 @@
 //
 
 import UIKit
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    
+    // CoreDate object to call the object for one time
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "DataModel")
+        container.loadPersistentStores { (storeDiscription, errors) in
+            if let error = errors {
+                fatalError("Could not load data store \(error)")
+            }
+        }
+        return container
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = self.persistentContainer.viewContext
+    
+    
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
+        
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        // Pass Managed Object Context
+        let tabBar = window?.rootViewController as! UITabBarController
+        if let tabBarViewController = tabBar.viewControllers {
+            let navigationController = tabBarViewController[0] as! UINavigationController
+            let currentViewController = navigationController.viewControllers.first  as! CurrentLocationViewController
+            currentViewController.managedObjectContext = managedObjectContext
+            print("Application Document Directory \(applicationDocumentDirectory)")
+            listenFatalCoreDataNotification()
+        }
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+    
+    
+    private func listenFatalCoreDataNotification() {
+        NotificationCenter.default.addObserver(forName: coreDataSaveFailedNotification, object: nil, queue: .main) { (notification) in
+            let message = """
+               there was a fata error in the app and cannot continue.
+               press 'Ok' to terminate the app. sorry for inconvenience.
+               """
+            let alert = UIAlertController(title: "Internal Error", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "ok", style: .default) { (_) in
+                let exception = NSException(name: NSExceptionName.internalInconsistencyException, reason: "fatal Core Data Error", userInfo: nil)
+                exception.raise()
+            }
+            alert.addAction(action)
+            let tabController = self.window!.rootViewController!
+            tabController.present(alert, animated: true, completion: nil)
+            
+        }
     }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
-
+    
 }
 

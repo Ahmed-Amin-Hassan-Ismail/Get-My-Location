@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -17,6 +18,9 @@ private let dateFormatter: DateFormatter = {
 }()
 
 class LocationDetailsViewController: UITableViewController {
+    
+    // Core Data Instance
+       var managedObjectContext: NSManagedObjectContext!
     
     //Instance Variables
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -45,6 +49,10 @@ class LocationDetailsViewController: UITableViewController {
         
         let hudView = HudView.hud(inView: navigationController!.view, animated: true)
         hudView.text = "Tagged"
+        
+        // Saving Into Core Data
+        saveIntoCoreData()
+        
         // Grand Central Dispatch
         afterDelay(0.6) { [unowned self ] in
             hudView.hideHUD()
@@ -154,14 +162,30 @@ extension LocationDetailsViewController {
         }
         var text2 = " "
         if let s = placemark.locality {
-            text2 += s + " "
+            text2 += s + ", "
         }
         if let s = placemark.administrativeArea {
-            text2 += s + " "
+            text2 += s + ", "
         }
         if let s = placemark.country {
             text2 += s + " ."
         }
         return text1 + "\n" + text2
+    }
+    
+    private func saveIntoCoreData() {
+        let location = Location(context: managedObjectContext)
+        location.locationDescription = descriptionLabel.text
+        location.category = categoryLabel.text!
+        location.latitude = coordinate.latitude
+        location.longitude = coordinate.longitude
+        location.date = date
+        location.placemark = placemark
+        
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalCoreDataError(error)
+        }
     }
 }
