@@ -36,12 +36,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Pass Managed Object Context
         let tabBar = window?.rootViewController as! UITabBarController
         if let tabBarViewController = tabBar.viewControllers {
+            
+            // For the First Tab
             let navigationController = tabBarViewController[0] as! UINavigationController
             let currentViewController = navigationController.viewControllers.first  as! CurrentLocationViewController
             currentViewController.managedObjectContext = managedObjectContext
-            print("Application Document Directory \(applicationDocumentDirectory)")
-            listenFatalCoreDataNotification()
+            
+            // For the Second Tab
+            let navigationController2 = tabBarViewController[1] as! UINavigationController
+            let locationViewController = navigationController2.viewControllers.first as! LocationsViewController
+            locationViewController.managedObjectContext = managedObjectContext
+            let _ = locationViewController.view
         }
+        print("Application Document Directory \(applicationDocumentDirectory)")
+        listenFatalCoreDataNotification()
     }
     
     
