@@ -198,21 +198,41 @@
                             </tableViewSection>
                             <tableViewSection headerTitle=" " footerTitle=" " id="gQt-00-vLV">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="f8f-fY-iS7" style="IBUITableViewCellStyleDefault" id="owM-Pr-nhG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="owM-Pr-nhG">
                                         <rect key="frame" x="0.0" y="171" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="owM-Pr-nhG" id="Cyl-5G-AE7">
                                             <rect key="frame" x="0.0" y="0.0" width="348" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Add Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f8f-fY-iS7">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1fK-Ce-6iD">
+                                                    <rect key="frame" x="16" y="5" width="327" height="33.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tE-D5-jpX">
+                                                            <rect key="frame" x="0.0" y="0.0" width="81" height="33.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="81" id="6jI-Jz-kRY"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iDh-wO-wDJ">
+                                                            <rect key="frame" x="91" y="0.0" width="236" height="33.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="236" id="ckv-2H-Dhu"/>
+                                                                <constraint firstAttribute="height" constant="33.5" id="uJk-Tv-iyr"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="1fK-Ce-6iD" secondAttribute="bottom" constant="5" id="0OH-KX-Jnr"/>
+                                                <constraint firstAttribute="trailing" secondItem="1fK-Ce-6iD" secondAttribute="trailing" constant="5" id="HbK-eO-egb"/>
+                                                <constraint firstItem="1fK-Ce-6iD" firstAttribute="leading" secondItem="Cyl-5G-AE7" secondAttribute="leadingMargin" id="LQC-L9-KWn"/>
+                                                <constraint firstItem="1fK-Ce-6iD" firstAttribute="top" secondItem="Cyl-5G-AE7" secondAttribute="top" constant="5" id="ups-MT-mmv"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -340,8 +360,11 @@
                         <outlet property="categoryLabel" destination="4vm-se-WQp" id="3vY-Ub-jBb"/>
                         <outlet property="dateLabel" destination="upP-bo-snv" id="NTh-tB-O63"/>
                         <outlet property="descriptionLabel" destination="Wl7-jt-hh1" id="S38-bO-06i"/>
+                        <outlet property="imageHeight" destination="uJk-Tv-iyr" id="wae-GP-wf4"/>
+                        <outlet property="imageView" destination="iDh-wO-wDJ" id="QKy-F9-tcS"/>
                         <outlet property="latitudeLabel" destination="NtF-Mf-sgj" id="BF9-xz-fEX"/>
                         <outlet property="longitudeLabel" destination="li4-LS-vUi" id="uzd-Og-odj"/>
+                        <outlet property="photoLabel" destination="7tE-D5-jpX" id="WV1-oQ-A82"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPy-IG-k4x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

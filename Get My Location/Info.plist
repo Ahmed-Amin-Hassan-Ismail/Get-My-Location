@@ -56,6 +56,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Let&apos;s add photos to your description from gallary </string>
+	<key>NSCameraUsageDescription</key>
+	<string>Let&apos;s add photos to your description by camera </string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

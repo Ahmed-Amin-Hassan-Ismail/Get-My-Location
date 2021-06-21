@@ -10,6 +10,7 @@
 import Foundation
 import CoreData
 import CoreLocation
+import UIKit
 
 
 extension Location {
@@ -24,5 +25,4 @@ extension Location {
     @NSManaged public var date: Date
     @NSManaged public var locationDescription: String
     @NSManaged public var placemark: CLPlacemark?
-
 }
